@@ -1,0 +1,47 @@
+
+.wrapper_activite{
+  min-height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: gray;
+  padding-top: 10%;
+  padding-bottom: 5%;
+}
+
+.container_activite{
+  height: 150px;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+  margin: 0px auto;
+  margin-bottom: 20px;
+  padding: 2%;
+  border-radius: 8px;
+}
+
+
+.container_menu{
+  height: 10%;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  background-color: blue;
+  display: flex;
+}
+
+.wrapper_menu{
+  margin: auto;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  background-color: yellow;
+}
+
+.menu-link{
+  height: 90%;
+  width: 15%;
+  background-color: green;
+  margin: auto;
+}
