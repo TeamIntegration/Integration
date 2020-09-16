@@ -1,9 +1,9 @@
-<!DOCTYPE html>
 <html lang="en" dir="ltr">
-  </head>
 <head>
+  <meta charset="utf-8">
   <link rel="stylesheet" href="assets/css/accueil.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
   <body>
     <header>
       <h1><span>&lt/Int</span>Egration/&gt</h1>
