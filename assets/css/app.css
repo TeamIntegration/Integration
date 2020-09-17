@@ -7,4 +7,28 @@
 html, body, main{
   width: 100%;
   height: 100%;
+  background-color: #172A3A;
+}
+
+.container_menu{
+  height: 10%;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  background-color: #101E2A;
+  display: flex;
+}
+
+.wrapper_menu{
+  margin: auto;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  background-color: #101E2A;
+}
+
+.menu-link{
+  height: 90%;
+  width: 10%;
+  margin: auto;
 }

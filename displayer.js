@@ -9,6 +9,10 @@ function DisplayActivite(){
 
     if (res.html != "") {
       document.getElementsByTagName('main')[0].innerHTML = res.html;
+
+      //Affichage de l'icon en red et reset de la précédente.
+      document.getElementById('activite').src = "assets/icons/joystickRed_127px.png";
+      document.getElementById('leaderBoard').src = "assets/icons/trophyGrey_127px.png";
     }
 
   } else if (this.readyState == 4) {
@@ -16,7 +20,7 @@ function DisplayActivite(){
   }
   };
 
-  xhr.open("POST", "activite.php", true);
+  xhr.open("POST", "views/activite.php", true);
   xhr.responseType = "json";
   // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.send();
@@ -35,6 +39,10 @@ function DisplayLeaderBoard(){
 
       if (res.html != "") {
         document.getElementsByTagName('main')[0].innerHTML = res.html;
+
+        //Affichage de l'icon en red et reset de la précédente.
+        document.getElementById('leaderBoard').src = "assets/icons/trophyRed_127px.png";
+        document.getElementById('activite').src = "assets/icons/joystickGrey_127px.png";
       }
 
     } else if (this.readyState == 4) {
@@ -42,7 +50,7 @@ function DisplayLeaderBoard(){
     }
     };
 
-    xhr.open("POST", "leaderBoard.php", true);
+    xhr.open("POST", "views/leaderBoard.php", true);
     xhr.responseType = "json";
     // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send();

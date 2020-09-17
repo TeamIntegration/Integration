@@ -4,7 +4,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: gray;
   padding-top: 10%;
   padding-bottom: 5%;
 }
@@ -14,34 +13,23 @@
   width: 85%;
   display: flex;
   flex-direction: column;
-  background-color: red;
+  background-color: #253644;
   margin: 0px auto;
   margin-bottom: 20px;
   padding: 2%;
   border-radius: 8px;
 }
 
-
-.container_menu{
-  height: 10%;
-  width: 100%;
-  position: fixed;
-  bottom: 0px;
-  background-color: blue;
-  display: flex;
+.container_activite h2{
+  margin: auto 15px;
+  color: #fff;
+  font-family: "Play", sans-serif;
+  font-size: 35px;
 }
 
-.wrapper_menu{
-  margin: auto;
-  height: 100%;
-  width: 50%;
-  display: flex;
-  background-color: yellow;
-}
-
-.menu-link{
-  height: 90%;
-  width: 15%;
-  background-color: green;
-  margin: auto;
+.container_activite h6{
+  margin: auto 15px;
+  color: #fff;
+  font-family: "Play", sans-serif;
+  font-size: 25px;
 }
