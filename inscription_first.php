@@ -23,10 +23,10 @@
           <input type="text" name="prenom" id="firstname" class="input" placeholder="Prénom" autocomplete="off">
           <input type="email" name="email" id="email" class="input" placeholder="Email">
           <input type="password" name="motDePasse" id="password" class="input" placeholder="Mot de Passe">
-          <input type="submit" id="sender" class="sender" value="Valider">
+          <input type="submit" id="sender" class="sender" onclick="Inscription_First()" value="Valider">
         </form>
 
-        <script type="text/javascript" src="assets/js/verifInscription.js"></script>
+        <script type="text/javascript" src="assets/js/verifInscription_first.js"></script>
       </div>
       <div class="footer">
         <p>Vous avez déjà un compte? <a href="">Connectez-vous.</a></p>

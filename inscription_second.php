@@ -30,7 +30,7 @@
           </div>
         </div>
         <button type="submit" onclick="SendInscription()" class="sender">Valider</button>
-        <script type="text/javascript" src="assets/js/verifInscription.js"></script>
+        <script type="text/javascript" src="assets/js/verifInscription_second.js"></script>
       </div>
       <div class="footer">
         <p>Vous avez déjà un compte? <a href="">Connectez-vous.</a></p>

@@ -34,6 +34,10 @@ class User
     return $this->email;
   }
 
+  public function GET_Rank(){
+    return $this->rank;
+  }
+
 }
 
 

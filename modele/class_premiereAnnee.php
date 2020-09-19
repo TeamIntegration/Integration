@@ -9,9 +9,9 @@ class PremiereAnnee extends User
 {
   private $idEquipe;
 
-  function __construct($myId, $myName, $myFirstName, $myEmail)
+  function __construct($myId, $myName, $myFirstName, $myEmail, $myIdEquipe)
   {
-    $this->idEquipe = null;
+    $this->idEquipe = $myIdEquipe;
     parent::__construct($myId, $myName, $myFirstName, $myEmail);
   }
 

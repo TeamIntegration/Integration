@@ -5,35 +5,27 @@
  */
 class Equipe
 {
-  private $id;
   private $name;
-  private $nbMember;
-  private $pointGlobal;
-  private $liste_pointActivite;
+  private $liste_nomEtudiant;
+  private $point;
 
-  function __construct($myId, $myName, $myNbMember, $myPointGlobal, $myListe_pointActivite)
+  function __construct($myName, $myListe_nomEtudiant, $myPoint)
   {
-    $this->id = $myId;
     $this->name = $myName;
-    $this->nbMember = $myNbMember;
-    $this->pointGlobal = $myPointGlobal;
-    $this->liste_pointActivite = $myListe_pointActivite;
-  }
-
-  public function GET_Id(){
-    return $this->id;
+    $this->liste_nomEtudiant = $myListe_nomEtudiant;
+    $this->point = $myPoint;
   }
 
   public function GET_Name(){
     return $this->name;
   }
 
-  public function GET_NbMember(){
-    return $this->$nbMember;
+  public function GET_ListeNomEtudiant(){
+    return $this->liste_nomEtudiant;
   }
 
-  public function GET_PointGlobal(){
-    return $this->pointGlobal;
+  public function GET_Point(){
+    return $this->point;
   }
 }
 
