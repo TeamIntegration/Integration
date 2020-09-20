@@ -97,6 +97,7 @@ class accesBD
 
 	public function REQLeaderBoard_LoadEquipe(){
 		$success = 0;
+		$errorMessage = "";
 		$i = 0;
 		$j = -1;
 		$flag = false;
@@ -104,30 +105,37 @@ class accesBD
 		$request = $this->bdd->prepare("SELECT etudiant.nomEtudiant, equipe.nomEquipe, equipe.scoreEquipe FROM equipe, etudiant, 1sio WHERE equipe.idEquipe = 1sio.idEquipe and etudiant.idEtudiant = 1sio.idEtudiant and equipe.scoreEquipe IS NOT NULL ORDER BY equipe.scoreEquipe DESC, equipe.nomEquipe ASC");
 		if ($request->execute()) {
 			//Pour chaque Row -> etudiant 1SIO qui sont dans une équipe qui a joué.
-			while ($result = $request->fetch()) {
-				if ($i > 0) {
-					foreach ($liste_nomEquipe as $key => $value) {
-						if ($result["nomEquipe"] == $value) {
-							$flag = true;
+			if ($request->rowCount() > 0) {
+				while ($result = $request->fetch()) {
+					if ($i > 0) {
+						foreach ($liste_nomEquipe as $key => $value) {
+							if ($result["nomEquipe"] == $value) {
+								$flag = true;
+							}
 						}
 					}
+					//On a une nouvelle équipe donc on l'ajoute à la liste et on remet j=0 pour inserer le premier étudiant.
+					if ($flag == false) {
+						$j = 0;
+						$liste_nomEquipe[$i] = $result["nomEquipe"];
+						$liste_score[$i] = $result["scoreEquipe"];
+						$i++;
+					}
+					//On a une equipe déja créer donc on ajoute uniquement l'étudiant.
+					$liste_nomEtudiant[$i - 1][$j] = $result["nomEtudiant"]; //Liste des étudiants par rapport au equipe.
+					$flag = false;
+					$j++;
 				}
-				//On a une nouvelle équipe donc on l'ajoute à la liste et on remet j=0 pour inserer le premier étudiant.
-				if ($flag == false) {
-					$j = 0;
-					$liste_nomEquipe[$i] = $result["nomEquipe"];
-					$liste_score[$i] = $result["scoreEquipe"];
-					$i++;
-				}
-				//On a une equipe déja créer donc on ajoute uniquement l'étudiant.
-				$liste_nomEtudiant[$i - 1][$j] = $result["nomEtudiant"]; //Liste des étudiants par rapport au equipe.
-				$flag = false;
-				$j++;
+				$success = 1;
+				$response = ["liste_nomEquipe" => $liste_nomEquipe, "liste_nomEtudiant" => $liste_nomEtudiant, "liste_score" => $liste_score, "success" => $success];
+
+			}else {
+				$success = 0;
+				$errorMessage = "Le classement n'est pas encore disponible.";
+				$response = ["errorMessage" => $errorMessage, "success" => $success];
 			}
-			$success = 1;
-			$response = ["liste_nomEquipe" => $liste_nomEquipe, "liste_nomEtudiant" => $liste_nomEtudiant, "liste_score" => $liste_score, "success" => $success];
 		}else {
-			$response = ["success" => $success];
+			$response = ["success" => $success, "errorMessage" => $errorMessage];
 		}
 		return $response;
 	}

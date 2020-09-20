@@ -19,7 +19,7 @@
         include 'modele/class_premiereAnnee.php';
         include 'modele/class_accompagnant.php';
 
-        $myUser = new Accompagnant(1, "lecat", "baptiste", "qsqsd", 5);
+        $myUser = new PremiereAnnee(1, "lecat", "baptiste", "qsqsd", 5);
         $nomClass = get_class($myUser);
 
         switch ($nomClass) {
@@ -42,6 +42,7 @@
             break;
         }
          ?>
+
       </div>
     </div>
   </body>
