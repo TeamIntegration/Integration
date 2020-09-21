@@ -32,6 +32,12 @@ html, body, main{
   width: 10%;
 }
 
+.container_icon img{
+  margin: auto;
+  height: 70%;
+  width: 60%;
+}
+
 .container_information{
   height: 100%;
   width: 80%;
