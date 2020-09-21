@@ -21,7 +21,7 @@ if ($liste_activite != null) {
   if (count($liste_activite) > 0) {
     $html = '<div class="wrapper_activite">';
     foreach ($liste_activite as $activite => $value) {
-      if ($value->GET_Participer() == true) {
+      if ($value->GET_Effectuer() == true) {
         $html .= '<div class="container_activite" style="background-color: #F03A47">
         <h2>'.$value->GET_Name().'</h2>
         <h6>lieu: '.$value->GET_Lieu().'</h6>

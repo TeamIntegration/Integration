@@ -9,14 +9,16 @@ class Activite
   private $id;
   private $name;
   private $lieu;
-  private $participer;
+  //private $tour;
+  private $effectuer;
 
-  function __construct($myId, $myName, $myLieu, $myParticiper)
+  function __construct($myId, $myName, $myLieu, $myEffectuer)
   {
     $this->id = $myId;
     $this->name = $myName;
     $this->lieu = $myLieu;
-    $this->participer = $myParticiper;
+  //  $this->tour = $myTour;
+    $this->$effectuer = $myEffectuer;
   }
 
   public function GET_Id(){
@@ -31,12 +33,16 @@ class Activite
     return $this->lieu;
   }
 
-  public function GET_Participer(){
-    return $this->participer;
+/*  public function GET_Tour(){
+    return $this->tour;
+  }*/
+
+  public function GET_Effectuer(){
+    return $this->effectuer;
   }
 
-  public function SET_Participer(){
-    $this->participer = true;
+  public function SET_Effectuer(){
+    $this->effectuer = true;
   }
 }
 
