@@ -17,8 +17,8 @@ class Activite
     $this->id = $myId;
     $this->name = $myName;
     $this->lieu = $myLieu;
-  //  $this->tour = $myTour;
-    $this->$effectuer = $myEffectuer;
+    //$this->tour = $myTour;
+    $this->effectuer = $myEffectuer;
   }
 
   public function GET_Id(){

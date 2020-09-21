@@ -22,13 +22,12 @@ html, body, main{
 .wrapper_menu{
   margin: auto;
   height: 100%;
-  width: 50%;
+  width: 70%;
   display: flex;
   background-color: #101E2A;
 }
 
 .menu-link{
-  height: 90%;
-  width: 10%;
+  height: 85%;
   margin: auto;
 }

@@ -15,7 +15,9 @@ if ($liste_load["success"] == 1) {
     $liste_equipe[$key] = new Equipe($liste_nomEquipe[$key], $liste_nomEtudiant[$key], $liste_score[$key]);
   }
 
-  $html = '<div class="wrapper_leaderBoard">';
+  $html = '<div class="page_title">
+          <h1>Leader<span>Board</span></h1>
+        </div><div class="wrapper_leaderBoard">';
   foreach ($liste_equipe as $key => $value) {
     $uneliste_nomEtudiant = $value->GET_ListeNomEtudiant();
     $stringEtudiant = '';
@@ -34,7 +36,7 @@ if ($liste_load["success"] == 1) {
             <p>'.$stringEtudiant.'</p>
           </div>
           <div class="container_score">
-            <p>'.$value->GET_Point().' pts</p>
+            <h5>'.$value->GET_Point().' pts</h5>
           </div>
         </div>';
     }else {
@@ -49,7 +51,7 @@ if ($liste_load["success"] == 1) {
               <p>'.$stringEtudiant.'</p>
             </div>
             <div class="container_score">
-              <p>'.$value->GET_Point().' pts</p>
+              <h5>'.$value->GET_Point().' pts</h5>
             </div>
           </div>';
           break;
@@ -63,7 +65,7 @@ if ($liste_load["success"] == 1) {
               <p>'.$stringEtudiant.'</p>
             </div>
             <div class="container_score">
-              <p>'.$value->GET_Point().' pts</p>
+              <h5>'.$value->GET_Point().' pts</h5>
             </div>
           </div>';
           break;
@@ -77,7 +79,7 @@ if ($liste_load["success"] == 1) {
               <p>'.$stringEtudiant.'</p>
             </div>
             <div class="container_score">
-              <p>'.$value->GET_Point().' pts</p>
+              <h5>'.$value->GET_Point().' pts</h5>
             </div>
           </div>';
           break;
@@ -92,7 +94,7 @@ if ($liste_load["success"] == 1) {
               <p>'.$stringEtudiant.'</p>
             </div>
             <div class="container_score">
-              <p>'.$value->GET_Point().' pts</p>
+              <h5>'.$value->GET_Point().' pts</h5>
             </div>
           </div>';
           break;
