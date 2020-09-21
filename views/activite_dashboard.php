@@ -8,19 +8,21 @@
     <title></title>
   </head>
   <body>
-    <header>
-      <h1>ListeEquipe</h1>
-    </header>
+    <div class="page_title">
+      <h1>Gestion<span>Activite</span></h1>
+    </div>
 
     <div class="score_container">
-      <h2>1345</h2>
+      <h2>1345 pts</h2>
     </div>
     <div class="switcher_score_container">
-      <div class="switcher_score">
+      <div class="switcher_container">
         <div class="selector" id="selector_add">
 
         </div>
-        <h3>123</h3>
+        <div class="switcher_score">
+          <h3>123</h3>
+        </div>
         <div class="selector" id="selector_remove">
 
         </div>
@@ -37,8 +39,8 @@
           <img src="../assets\icons\joystickGrey_127px.png" id="activite" class="menu-link" style="display: none;" onclick="displayActivite()">
           <img src="../assets\icons\jerseyGrey_127px.png" id="accompagnant" class="menu-link" onclick="displayEquipe()">
           <img src="../assets\icons\trophyGrey_127px.png" id="leaderBoard" class="menu-link" onclick="displayLeaderBoard()">
-          <script type="text/javascript" src="displayer.js"></script>
-          <script type="text/javascript">displayEquipe();</script>
+          <!--<script type="text/javascript" src="displayer.js"></script>
+          <script type="text/javascript">displayEquipe();</script>-->
 
       </div>
     </div>
