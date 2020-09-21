@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../assets/css/app.css">
-    <link rel="stylesheet" href="/css/activite.css">
+    <link rel="stylesheet" href="../assets/css/activite_dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title></title>
   </head>
   <body>
@@ -16,11 +17,11 @@
     </div>
     <div class="switcher_score_container">
       <div class="switcher_score">
-        <div class="selector_add">
+        <div class="selector" id="selector_add">
 
         </div>
         <h3>123</h3>
-        <div class="selector_remove">
+        <div class="selector" id="selector_remove">
 
         </div>
       </div>
