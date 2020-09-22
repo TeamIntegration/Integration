@@ -63,7 +63,7 @@ class accesBD
 
 		$success = 0;
 
-		$request = $this->bdd->prepare("SELECT user.email FROM user WHERE user.email = ?");
+		$request = $this->bdd->prepare("SELECT etudiant.emailEtudiant FROM user WHERE etudiant.emailEtudiant = ?");
 		if ($request->execute(array($email))) {
 			if ($request->rowCount() <= 0) {
 				$success = 1;
@@ -78,9 +78,9 @@ class accesBD
 
 		$success = 0;
 
-		$request = $this->bdd->prepare("INSERT INTO user (name, firstname, email, password) VALUES (?, ?, ?, ?)");
+		$request = $this->bdd->prepare("INSERT INTO etudiant (nomEtudiant, prenomEtudiant, emailEtudiant, passwordEtudiant) VALUES (?, ?, ?, ?)");
 		if ($request->execute(array($name, $firstname, $email, $password))) {
-			$request = $this->bdd->prepare("SELECT user.id FROM user WHERE user.email = ?");
+			$request = $this->bdd->prepare("SELECT etudiant.idEtudiant FROM user WHERE etudiant.emailEtudiant = ?");
 			if ($request->execute(array($email))) {
 				$result = $request->fetch();
 				$idUser = intval($result["id"]);
@@ -89,6 +89,22 @@ class accesBD
 		}
 
 		return $success;
+	}
+
+	public function REQConnexion_VerifAccount($email, $password){
+		$success = 0;
+
+		$request = $this->bdd->prepare("SELECT etudiant.idEtudiant FROM etudiant WHERE etudiant.emailEtudiant = ? and etudiant.passwordEtudiant = ?");
+		if ($request->execute(array($email, $password))) {
+			if ($request->rowCount() > 0) {
+				$success = 1;
+				$response = ["success" => $success, "idUser" => $result["idEtudiant"]];
+			}else {
+				$response = ["success" => $success];
+			}
+		}else {
+			$response = ["success" => $success];
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -148,14 +164,25 @@ class accesBD
 
 	function REQActivite_Load($emailUser){
 		$success = 0;
+		$i = 0;
 
 		$request = $this->bdd->prepare("SELECT activite.libelleActivite, activite.lieuActivite, participer.tour, participer.effectuer FROM activite, participer, 1SIO, etudiant WHERE activite.idActivite = participer.idActivite AND participer.idEquipe = 1sio.idEquipe AND 1sio.idEtudiant = etudiant.idEtudiant AND etudiant.emailEtudiant = ?");
 		if ($request->execute(array($emailUser))) {
-			while ($result = $request->fetch()) {
-				// code...
+			if ($request->rowCount() > 0) {
+				while ($result = $request->fetch()) {
+					$liste_activite[$i] = ["libelleActivite" => $result["libelleActivite"], "lieuActivite" => $result["lieuActivite"], "tour" => $result["tour"], "effectuer" => $result["effectuer"]];
+				}
+				$success = 1;
+				$response = ["success" => $success, "liste_activite" => $liste_activite];
+			}else {
+				$response = ["success" => $success];
 			}
+		}else {
+			$response = ["success" => $success];
 		}
-		}
+
+		return $response;
+	}
 
 }
 
