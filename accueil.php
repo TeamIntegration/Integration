@@ -1,3 +1,11 @@
+<?php
+session_start();
+session_destroy();
+session_start();
+
+ ?>
+
+
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
@@ -20,7 +28,7 @@
         <button type="button" name="buttonInscription" onclick="document.location.href='inscription_first.php'">Inscription</button>
       </div>
       <div class="footer">
-        <p>Vous avez déjà un compte? <a href="inscription_first.php">Connectez-vous.</a></p>
+        <p>Vous avez déjà un compte? <a href="connexion.php">Connectez-vous.</a></p>
       </div>
     </main>
   </body>

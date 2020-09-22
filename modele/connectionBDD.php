@@ -97,14 +97,98 @@ class accesBD
 		$request = $this->bdd->prepare("SELECT etudiant.idEtudiant FROM etudiant WHERE etudiant.emailEtudiant = ? and etudiant.passwordEtudiant = ?");
 		if ($request->execute(array($email, $password))) {
 			if ($request->rowCount() > 0) {
+				$result = $request->fetch();
 				$success = 1;
-				$response = ["success" => $success, "idUser" => $result["idEtudiant"]];
+				$response = ["success" => $success, "idUser" => intval($result["idEtudiant"])];
 			}else {
 				$response = ["success" => $success];
 			}
 		}else {
 			$response = ["success" => $success];
 		}
+
+		return $response;
+	}
+
+	public function REQConnexion_SearchRank($idUser){
+		$success = 0;
+
+		$request = $this->bdd->prepare("SELECT 1sio.idEtudiant FROM 1sio WHERE 1sio.idEtudiant = ?");
+		if ($request->execute(array($idUser))) {
+			if ($request->rowCount() > 0) {
+				//C'est un 1sio
+				$success = 1;
+				$response = ["success" => $success, "rank" => "1sio"];
+			}else {
+				$request = $this->bdd->prepare("SELECT accompagner.idEtudiant FROM accompagner WHERE accompagner.idEtudiant = ?");
+				if ($request->execute(array($idUser))) {
+					if ($request->rowCount() > 0) {
+						//C'est un accompagnant
+						$success = 1;
+						$response = ["success" => $success, "rank" => "accompagnant"];
+					}else {
+						//C'est un gérant
+						$success = 1;
+						$response = ["success" => $success, "rank" => "gerant"];
+					}
+				}
+			}
+		}
+
+		if ($success == 0) {
+			$response = ["success" => $success];
+		}
+
+		return $response;
+	}
+
+	public function REQConnexion_LoadInfo($rank, $idUser){
+		switch ($rank) {
+			case "1sio":
+				$request = $this->bdd->prepare("SELECT 1sio.idEquipe, etudiant.nomEtudiant, etudiant.prenomEtudiant, etudiant.emailEtudiant FROM 1sio, etudiant WHERE etudiant.idEtudiant = 1sio.idEtudiant and etudiant.idEtudiant = ?");
+				if ($request->execute(array($idUser))) {
+					if ($request->rowCount() > 0) {
+						$result = $request->fetch();
+						$success = 1;
+						$response = ["success" => $success, "nomEtudiant" => $result["nomEtudiant"], "prenomEtudiant" => $result["prenomEtudiant"], "emailEtudiant" => $result["emailEtudiant"], "idEquipe" => $result["idEquipe"]];
+					}
+				}
+
+				if ($success == 0) {
+					$response = ["success" => $success];
+				}
+				break;
+			case "accompagnant":
+				$request = $this->bdd->prepare("SELECT accompagner.idEquipe, etudiant.nomEtudiant, etudiant.prenomEtudiant, etudiant.emailEtudiant FROM accompagner, etudiant WHERE etudiant.idEtudiant = accompagner.idEtudiant and etudiant.idEtudiant = ?");
+				if ($request->execute(array($idUser))) {
+					if ($request->rowCount() > 0) {
+						$result = $request->fetch();
+						$success = 1;
+						$response = ["success" => $success, "nomEtudiant" => $result["nomEtudiant"], "prenomEtudiant" => $result["prenomEtudiant"], "emailEtudiant" => $result["emailEtudiant"], "idEquipe" => $result["idEquipe"]];
+					}
+				}
+
+				if ($success == 0) {
+					$response = ["success" => $success];
+				}
+				break;
+			case "gerant":
+				$request = $this->bdd->prepare("SELECT gerer.idActivite, etudiant.nomEtudiant, etudiant.prenomEtudiant, etudiant.emailEtudiant FROM accompagner, etudiant WHERE etudiant.idEtudiant = gerer.idEtudiant and etudiant.idEtudiant = ?");
+				if ($request->execute(array($idUser))) {
+					if ($request->rowCount() > 0) {
+						$result = $request->fetch();
+						$success = 1;
+						$response = ["success" => $success, "nomEtudiant" => $result["nomEtudiant"], "prenomEtudiant" => $result["prenomEtudiant"], "emailEtudiant" => $result["emailEtudiant"], "idActivite" => $result["idActivite"]];
+					}
+				}
+
+				if ($success == 0) {
+					$response = ["success" => $success];
+				}
+				break;
+		}
+
+		return $response;
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -27,7 +27,7 @@
         <script type="text/javascript" src="assets/js/verifConnexion.js"></script>
       </div>
       <div class="footer">
-        <p>Vous n'avez pas encore de compte? <a href="">Enregistrez-vous.</a></p>
+        <p>Vous n'avez pas encore de compte? <a href="inscription_first.php">Enregistrez-vous.</a></p>
       </div>
     </main>
   </body>

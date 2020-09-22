@@ -9,8 +9,10 @@ document.getElementById('form').addEventListener("submit", function(e) {
       var res = this.response;
 
       if (res.success == 1) {
-        alert("first etape");
-        document.location = 'inscription_second.php';
+        alert("connecté!");
+        document.location = 'app.php';
+      }else {
+        alert("Identifiant Incorrect");
       }
 
     }else if (this.readyState == 4) {

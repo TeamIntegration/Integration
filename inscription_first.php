@@ -29,7 +29,7 @@
         <script type="text/javascript" src="assets/js/verifInscription_first.js"></script>
       </div>
       <div class="footer">
-        <p>Vous avez déjà un compte? <a href="">Connectez-vous.</a></p>
+        <p>Vous avez déjà un compte? <a href="connexion.php">Connectez-vous.</a></p>
       </div>
     </main>
   </body>
