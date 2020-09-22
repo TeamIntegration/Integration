@@ -15,7 +15,7 @@ body{
   margin: auto;
   color: #F03A47;
   font-family: "Play", sans-serif;
-  font-size: 45px;
+  font-size: 40px;
 }
 
 .page_title span{
@@ -23,8 +23,9 @@ body{
 }
 
 .score_container{
+  margin: auto;
   width: 100%;
-  height: 30%;
+  height: 10%;
   display: flex;
 }
 
@@ -36,7 +37,7 @@ body{
 }
 
 .switcher_score_container{
-  height: 40%;
+  height: 35%;
   width: 85%;
   margin: auto;
   display: flex;
@@ -46,7 +47,7 @@ body{
 .switcher_container{
   margin: auto;
   height: 30%;
-  width: 40%;
+  width: 85%;
   display: flex;
 }
 
@@ -55,14 +56,39 @@ body{
   height: 100%;
   width: 60%;
   display: flex;
+  background-color: #253644;
 }
 
-.selector{
+.selector-right{
+  display: flex;
   margin: auto;
   height: 100%;
   width: 20%;
-  background-color: red;
-  border-radius: 8px;
+  border-top-right-radius: 22px;
+  border-bottom-right-radius: 22px;
+  background-color: #253644;
+}
+
+.selector-right img{
+  margin: auto;
+  width: 70%;
+  transform: rotate(-90deg);
+}
+
+.selector-left img{
+  margin: auto;
+  width: 70%;
+  transform: rotate(90deg);
+}
+
+.selector-left{
+  display: flex;
+  margin: auto;
+  height: 100%;
+  width: 20%;
+  border-top-left-radius: 22px;
+  border-bottom-left-radius: 22px;
+  background-color: #253644;
 }
 
 .switcher_score h3{
@@ -71,4 +97,42 @@ body{
   font-size: 30px;
   font-family: "Play", sans-serif;
   font-weight: bold;
+}
+
+.switcher_validate{
+  margin: auto;
+  width: 80%;
+  height: 25%;
+  display: flex;
+}
+
+.switcher_validate input{
+  margin: auto;
+  width: 75%;
+  height: 60%;
+  background-color: #43C02C;
+  border: none;
+  border-radius: 16px;
+  color: #fff;
+  font-family: "Play", sans-serif;
+  font-size: 26px;
+}
+
+.final_validate{
+  height: 20%;
+  width: 85%;
+  margin: auto;
+  display: flex;
+}
+
+.final_validate input{
+  margin: auto;
+  width: 80%;
+  height: 40%;
+  background-color: #F03A47;
+  border: none;
+  border-radius: 16px;
+  color: #fff;
+  font-family: "Play", sans-serif;
+  font-size: 26px;
 }

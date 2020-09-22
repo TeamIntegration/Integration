@@ -17,23 +17,24 @@
     </div>
     <div class="switcher_score_container">
       <div class="switcher_container">
-        <div class="selector" id="selector_add">
-
+        <div class="selector-left" id="selector_add">
+          <img src="../assets/icons/triangle_arrow_127px.png" onclick="IncrementScore('less')">
         </div>
         <div class="switcher_score">
-          <h3>123</h3>
+          <h3 id="score">123</h3>
         </div>
-        <div class="selector" id="selector_remove">
-
+        <div class="selector-right" id="selector_remove">
+          <img src="../assets/icons/triangle_arrow_127px.png" onclick="IncrementScore('more')">
         </div>
       </div>
       <div class="switcher_validate">
-        <input type="button" name="score_sender" placeholder="VALIDER">
+        <input type="button" name="score_sender" value="VALIDER">
       </div>
     </div>
     <div class="final_validate">
-      <input type="button" name="final_sender" placeholder="TERMINER">
+      <input type="button" name="final_sender" value="TERMINER">
     </div>
+    <script type="text/javascript" src="../assets/js/activiteDashboard.js"></script>
     <div class="container_menu">
       <div class="wrapper_menu">
           <img src="../assets\icons\joystickGrey_127px.png" id="activite" class="menu-link" style="display: none;" onclick="displayActivite()">
