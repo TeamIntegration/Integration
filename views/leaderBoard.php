@@ -87,7 +87,7 @@ if ($liste_load["success"] == 1) {
         default:
         $html .= '<div class="container_equipe" style="background-color: #1E2E3B;">
             <div class="container_icon">
-
+              <img src="assets\icons\leaderboard_icon.png">
             </div>
             <div class="container_information">
               <h2>'.$value->GET_Name().'</h2>
