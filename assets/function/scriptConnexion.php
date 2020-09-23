@@ -1,11 +1,8 @@
 <?php
 session_start();
 
-/*$email = $_POST['email'];
-$password = $_POST['motDePasse'];*/
-
-$email = "baptiste.lecat44@gmail.com";
-$password = "bat";
+$email = $_POST['email'];
+$password = $_POST['motDePasse'];
 $success = 0;
 
 include '../../modele/class_gerant.php';

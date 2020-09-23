@@ -173,7 +173,7 @@ class accesBD
 				}
 				break;
 			case "gerant":
-				$request = $this->bdd->prepare("SELECT gerer.idActivite, etudiant.nomEtudiant, etudiant.prenomEtudiant, etudiant.emailEtudiant FROM accompagner, etudiant WHERE etudiant.idEtudiant = gerer.idEtudiant and etudiant.idEtudiant = ?");
+				$request = $this->bdd->prepare("SELECT gerer.idActivite, etudiant.nomEtudiant, etudiant.prenomEtudiant, etudiant.emailEtudiant FROM gerer, etudiant WHERE etudiant.idEtudiant = gerer.idEtudiant and etudiant.idEtudiant = ?");
 				if ($request->execute(array($idUser))) {
 					if ($request->rowCount() > 0) {
 						$result = $request->fetch();
