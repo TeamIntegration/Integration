@@ -5,9 +5,8 @@
  */
 class Equipe
 {
-  private $name;
-  private $liste_nomEtudiant;
-  private $point;
+  private $id;
+  private $score;
 
   function __construct($myName, $myListe_nomEtudiant, $myPoint)
   {

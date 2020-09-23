@@ -1,11 +1,9 @@
 <?php
 session_start();
 
-/*$email = $_POST['email'];
-$password = $_POST['motDePasse'];*/
+$email = $_POST['email'];
+$password = hash('sha256', $_POST['motDePasse']);
 
-$email = "baptiste.lecat44@gmail.com";
-$password = "bat";
 $success = 0;
 
 include '../../modele/class_gerant.php';
@@ -33,10 +31,14 @@ if ($resultConnexion["success"] == 1) {
 
     $_SESSION["user"] = serialize($myUser);
     $success = 1;
+  }else {
+    if ($resultRecupInfo["success"] == 2) {
+      $success = 1;
+    }
   }
 }
 
-$response = ["success" => $success];
+$response = ["success" => $success, "password" => $password];
 
 echo json_encode($response);
 

@@ -12,7 +12,7 @@ document.getElementById('form').addEventListener("submit", function(e) {
         alert("connecté!");
         document.location = 'app.php';
       }else {
-        alert("Identifiant Incorrect");
+        alert(res.password);
       }
 
     }else if (this.readyState == 4) {

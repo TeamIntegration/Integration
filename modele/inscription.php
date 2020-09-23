@@ -37,12 +37,13 @@ class Inscription
     $success = 0;
 
     if ($this->Verif_Email() == 1) {
-      $createAccountResult = $this->bdd->REQInscription_CreateAccount($this->name, $this->firstname, $this->email, $this->password);
+      $createAccountResult = $this->bdd->REQInscription_CreateAccount($this->name, $this->firstname, $this->email, $this->password, $this->promo);
       if ($createAccountResult != 0) {
         $success = 1;
         $message = "Vous avez bien été inscrit.";
         $response = ["success" => $success, "message" => $message, "idUser" => $createAccountResult];
       }else {
+        $message = "Une erreur s'est produite lors de la création du compte.";
         $response = ["success" => $success, "message" => $message];
       }
     }else {

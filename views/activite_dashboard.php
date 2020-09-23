@@ -1,50 +1,74 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="../assets/css/app.css">
-    <link rel="stylesheet" href="../assets/css/activite_dashboard.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title></title>
-  </head>
-  <body>
-    <div class="page_title">
-      <h1>Gestion<span>Activite</span></h1>
-    </div>
+<?php
+session_start();
 
-    <div class="score_container">
-      <h2>1345 pts</h2>
-    </div>
-    <div class="switcher_score_container">
-      <div class="switcher_container">
-        <div class="selector-left" id="selector_add">
-          <img src="../assets/icons/triangle_arrow_127px.png" onclick="IncrementScore('less')">
-        </div>
-        <div class="switcher_score">
-          <h3 id="score">123</h3>
-        </div>
-        <div class="selector-right" id="selector_remove">
-          <img src="../assets/icons/triangle_arrow_127px.png" onclick="IncrementScore('more')">
-        </div>
-      </div>
-      <div class="switcher_validate">
-        <input type="button" name="score_sender" value="VALIDER">
-      </div>
-    </div>
-    <div class="final_validate">
-      <input type="button" name="final_sender" value="TERMINER">
-    </div>
-    <script type="text/javascript" src="../assets/js/activiteDashboard.js"></script>
-    <div class="container_menu">
-      <div class="wrapper_menu">
-          <img src="../assets\icons\joystickGrey_127px.png" id="activite" class="menu-link" style="display: none;" onclick="displayActivite()">
-          <img src="../assets\icons\jerseyGrey_127px.png" id="accompagnant" class="menu-link" onclick="displayEquipe()">
-          <img src="../assets\icons\trophyGrey_127px.png" id="leaderBoard" class="menu-link" onclick="displayLeaderBoard()">
-          <!--<script type="text/javascript" src="displayer.js"></script>
-          <script type="text/javascript">displayEquipe();</script>-->
+include '../modele/connectionBDD.php';
+//on Recupere le tour.
+$myConnexion = new AccesBd();
+$ready = false;
+$error = false;
 
+$myUser = unserialize($_SESSION['user']);
+$idActivite = $myUser->GET_IdActivite();
+
+$resultTour = ["success" => 1, "tour" => 1];
+//$resultTour = $myConnexion->REQTour_tour();
+if ($resultTour["success"] == 1) {
+  $tour = $resultTour["tour"];
+
+  $resultIdEquipe = $myConnexion->REQActiviteDash_IdEquipeActivite($idActivite, $tour);
+  if ($resultIdEquipe["success"] == 1) {
+    if (isset($resultIdEquipe["message"]) == false) {
+      $idEquipe = $resultIdEquipe["idEquipe"];
+
+      $resultScoreEquipe = $myConnexion->REQActiviteDash_ScoreEquipe($idEquipe);
+      if ($resultScoreEquipe["success"] == 1) {
+        $score = $resultScoreEquipe["score"];
+        $ready = true;
+      }
+    }else {
+      $error = true;
+      //PAS DACTIVITE RESTANTE
+    }
+  }
+}
+//recup info by id Activite;
+
+//Button valider update set avec la valeur de l'input.
+
+//Button terminer dans gerer update set activite finis a 1. et effectuer de participer a 1.
+
+if ($ready == true) {
+  $html = '<div class="page_title">
+    <h1>Gestion<span>Activite</span></h1>
+  </div>
+
+  <div class="score_container">
+    <h2 id="scoreTotal">'.$score.'</h2>
+  </div>
+  <div class="switcher_score_container">
+    <div class="switcher_container">
+      <div class="selector-left" id="selector_add">
+        <img src="../assets/icons/triangle_arrow_127px.png" onclick="IncrementScore('less')">
+      </div>
+      <div class="switcher_score">
+        <input type="number" name="score" id="score" value="0">
+      </div>
+      <div class="selector-right" id="selector_remove">
+        <img src="../assets/icons/triangle_arrow_127px.png" onclick="IncrementScore('more')">
       </div>
     </div>
+    <div class="switcher_validate">
+      <input type="button" name="score_sender" value="VALIDER" onclick="ValiderScore()">
+    </div>
+  </div>
+  <div class="final_validate">
+    <input type="button" name="final_sender" value="TERMINER">
+  </div>
+  <script type="text/javascript" src="../assets/js/activiteDashboard.js"></script>';
+}
 
-  </body>
-</html>
+$response = ["html" => $html];
+
+echo json_encode($response);
+
+ ?>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if ($_SESSION["user"] == null) {
+if (isset($_SESSION["user"]) == false ) {
   header('Location: connexion.php');
 }
 
@@ -26,6 +26,7 @@ if ($_SESSION["user"] == null) {
         <?php
         include 'modele/class_premiereAnnee.php';
         include 'modele/class_accompagnant.php';
+        include 'modele/class_gerant.php';
 
         $myUser = unserialize($_SESSION['user']);
         $nomClass = get_class($myUser);

@@ -38,7 +38,7 @@ body{
 
 .switcher_score_container{
   height: 35%;
-  width: 85%;
+  width: 280px;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -71,13 +71,13 @@ body{
 
 .selector-right img{
   margin: auto;
-  width: 70%;
+  width: 31px;
   transform: rotate(-90deg);
 }
 
 .selector-left img{
   margin: auto;
-  width: 70%;
+  width: 31px;
   transform: rotate(90deg);
 }
 
@@ -91,7 +91,14 @@ body{
   background-color: #253644;
 }
 
-.switcher_score h3{
+.switcher_score input{
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  -o-appearance: none;
+  border: none;
+  width: 100px;
+  text-align: center;
+  background-color: #253644;
   margin: auto;
   color: #fff;
   font-size: 30px;
@@ -108,8 +115,8 @@ body{
 
 .switcher_validate input{
   margin: auto;
-  width: 75%;
-  height: 60%;
+  width: 150px;
+  height: 45px;
   background-color: #43C02C;
   border: none;
   border-radius: 16px;
@@ -119,7 +126,7 @@ body{
 }
 
 .final_validate{
-  height: 20%;
+  height: 25%;
   width: 85%;
   margin: auto;
   display: flex;
@@ -127,12 +134,42 @@ body{
 
 .final_validate input{
   margin: auto;
-  width: 80%;
-  height: 40%;
+  width: 190px;
+  height: 55px;
   background-color: #F03A47;
   border: none;
   border-radius: 16px;
   color: #fff;
   font-family: "Play", sans-serif;
   font-size: 26px;
+}
+
+@media screen and (min-width: 425px){
+
+  .final_validate input{
+    width: 210px;
+  }
+
+  .switcher_validate input{
+    width: 180px;
+  }
+
+  .selector-right img{
+    width: 35px;
+  }
+
+  .selector-left img{
+    width: 35px;
+  }
+
+  .switcher_score_container{
+    width: 350px;
+  }
+}
+
+@media screen and (min-width: 768px){
+
+  .switcher_score_container{
+    width: 450px;
+  }
 }

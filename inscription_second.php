@@ -29,6 +29,7 @@
             <p>2SIO</p>
           </div>
         </div>
+        <input type="text" name="code" id="code" class="inputCode" maxlength="6" placeholder="Code Verification">
         <button type="submit" onclick="SendInscription()" class="sender">Valider</button>
         <script type="text/javascript" src="assets/js/verifInscription_second.js"></script>
       </div>

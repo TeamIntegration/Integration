@@ -112,16 +112,33 @@ form .input:focus{
   margin: auto;
 }
 
+.inputCode{
+  margin: 5px auto;
+  height: 30px;
+  width: 120px;
+  outline: none;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  font-family: "Play", sans-serif;
+  font-size: 14px;
+}
+
+.inputCode:focus{
+  border: 2px solid #F03A47;
+  color: #F03A47;
+}
+
 .wrapper_icon{
   margin: auto;
-  height: 75%;
-  width: 80%;
+  height: 70%;
+  width: 70%;
   display: flex;
 }
 
 .container_icon{
   margin: auto;
-  height: 70%;
+  height: 60%;
   width: 15%;
   border-radius: 20px;
   transition: ease-in-out;
@@ -132,8 +149,8 @@ form .input:focus{
 }
 
 .container_icon img{
-  height: 70%;
-  width: 90%;
+  height: 55%;
+  width: 65%;
   margin: auto;
 }
 
@@ -141,7 +158,7 @@ form .input:focus{
   margin: auto;
   color: #fff;
   font-family: "Play", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .footer{
@@ -163,6 +180,32 @@ form .input:focus{
   text-decoration: none;
 }
 
+@media screen and (max-height: 470px){
+
+  .footer{
+    display: none;
+  }
+
+  .title_container{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 375px){
+
+  form .input{
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 950px){
+
+  .container_icon{
+    height: 75%;
+    width: 35%;
+  }
+}
+
 @media screen and (min-width: 768px){
 
   header h1{
@@ -181,6 +224,18 @@ form .input:focus{
     height: 45px;
     width: 180px;
     font-size: 24px;
+  }
+
+  .form_container .sender{
+    width: 210px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .inputCode{
+    width: 160px;
+    height: 40px;
+    font-size: 18px;
   }
 
   .footer p{

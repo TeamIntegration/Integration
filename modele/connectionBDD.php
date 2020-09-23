@@ -63,7 +63,7 @@ class accesBD
 
 		$success = 0;
 
-		$request = $this->bdd->prepare("SELECT etudiant.emailEtudiant FROM user WHERE etudiant.emailEtudiant = ?");
+		$request = $this->bdd->prepare("SELECT etudiant.emailEtudiant FROM etudiant WHERE etudiant.emailEtudiant = ?");
 		if ($request->execute(array($email))) {
 			if ($request->rowCount() <= 0) {
 				$success = 1;
@@ -74,17 +74,27 @@ class accesBD
 	}
 
 //Si le success = 0 -> echec. Autrement il est égal à l'id du user.
-	public function REQInscription_CreateAccount($name, $firstname, $email, $password){
+	public function REQInscription_CreateAccount($name, $firstname, $email, $password, $promo){
 
 		$success = 0;
 
 		$request = $this->bdd->prepare("INSERT INTO etudiant (nomEtudiant, prenomEtudiant, emailEtudiant, passwordEtudiant) VALUES (?, ?, ?, ?)");
 		if ($request->execute(array($name, $firstname, $email, $password))) {
-			$request = $this->bdd->prepare("SELECT etudiant.idEtudiant FROM user WHERE etudiant.emailEtudiant = ?");
+			$request = $this->bdd->prepare("SELECT etudiant.idEtudiant FROM etudiant WHERE etudiant.emailEtudiant = ?");
 			if ($request->execute(array($email))) {
 				$result = $request->fetch();
-				$idUser = intval($result["id"]);
-				$success = $idUser;
+				$idUser = intval($result["idEtudiant"]);
+				if ($promo == "1SIO") {
+					$request = $this->bdd->prepare("INSERT INTO 1sio (idEtudiant) VALUES (?)");
+					if ($request->execute(array($idUser))) {
+						$success = $idUser;
+					}
+				}else {
+					$request = $this->bdd->prepare("INSERT INTO 2sio (idEtudiant) VALUES (?)");
+					if ($request->execute(array($idUser))) {
+						$success = $idUser;
+					}
+				}
 			}
 		}
 
@@ -98,8 +108,9 @@ class accesBD
 		if ($request->execute(array($email, $password))) {
 			if ($request->rowCount() > 0) {
 				$result = $request->fetch();
+				$idEtudiant = intval($result["idEtudiant"]);
 				$success = 1;
-				$response = ["success" => $success, "idUser" => intval($result["idEtudiant"])];
+				$response = ["success" => $success, "idUser" => $idEtudiant];
 			}else {
 				$response = ["success" => $success];
 			}
@@ -127,13 +138,20 @@ class accesBD
 						$success = 1;
 						$response = ["success" => $success, "rank" => "accompagnant"];
 					}else {
-						//C'est un gérant
-						$success = 1;
-						$response = ["success" => $success, "rank" => "gerant"];
+						$request = $this->bdd->prepare("SELECT gerer.idEtudiant FROM gerer WHERE gerer.idEtudiant = ?");
+						if ($request->execute(array($idUser))) {
+							if ($request->rowCount() > 0) {
+								//C'est un gerant
+								$success = 1;
+								$response = ["success" => $success, "rank" => "gerant"];
+							}else {
+								$success = 0;
+							}
 					}
 				}
 			}
 		}
+	}
 
 		if ($success == 0) {
 			$response = ["success" => $success];
@@ -143,6 +161,8 @@ class accesBD
 	}
 
 	public function REQConnexion_LoadInfo($rank, $idUser){
+		$success = 0;
+
 		switch ($rank) {
 			case "1sio":
 				$request = $this->bdd->prepare("SELECT 1sio.idEquipe, etudiant.nomEtudiant, etudiant.prenomEtudiant, etudiant.emailEtudiant FROM 1sio, etudiant WHERE etudiant.idEtudiant = 1sio.idEtudiant and etudiant.idEtudiant = ?");
@@ -173,7 +193,7 @@ class accesBD
 				}
 				break;
 			case "gerant":
-				$request = $this->bdd->prepare("SELECT gerer.idActivite, etudiant.nomEtudiant, etudiant.prenomEtudiant, etudiant.emailEtudiant FROM accompagner, etudiant WHERE etudiant.idEtudiant = gerer.idEtudiant and etudiant.idEtudiant = ?");
+				$request = $this->bdd->prepare("SELECT gerer.idActivite, etudiant.nomEtudiant, etudiant.prenomEtudiant, etudiant.emailEtudiant FROM gerer, etudiant WHERE etudiant.idEtudiant = gerer.idEtudiant and etudiant.idEtudiant = ?");
 				if ($request->execute(array($idUser))) {
 					if ($request->rowCount() > 0) {
 						$result = $request->fetch();
@@ -266,6 +286,79 @@ class accesBD
 		}
 
 		return $response;
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------REQUEST ACTIVITE_DASHBOARD--------------------------------------------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	public function REQTour_tour(){
+		$success = 0;
+
+		$request = $this->bdd->prepare("SELECT tour.nbTour FROM tour");
+		if ($request->execute()) {
+			$success = 1;
+			$result = $request->fetch();
+			$response = ["success" => $success, "tour" => intval($result["tour"])];
+		}else {
+			$response = ["success" => $success];
+		}
+
+		return $response;
+	}
+
+	public function REQActiviteDash_ScoreEquipe($idEquipe){
+		$success = 0;
+
+		$request = $this->bdd->prepare("SELECT equipe.scoreEquipe FROM equipe WHERE equipe.idEquipe = ?");
+		if ($request->execute(array($idEquipe))) {
+			if ($request->rowCount() > 0) {
+				$result = $request->fetch();
+				$success = 1;
+				$response = ["success" =>$success, "score" => intval($result["scoreEquipe"])];
+			}
+		}
+
+		if ($success == 0) {
+			$response = ["success" => $success];
+		}
+		return $response;
+	}
+
+	public function REQActiviteDash_IdEquipeActivite($idActivite, $tour){
+		$success = 0;
+
+		$request = $this->bdd->prepare("SELECT participer.idEquipe FROM participer WHERE participer.idActivite = ? and participer.tour = ?");
+		if ($request->execute(array($idActivite, $tour))) {
+			if ($request->rowCount() > 0) {
+				$result = $request->fetch();
+				$success = 1;
+				$response = ["success" => $success, "idEquipe" => intval($result["idEquipe"])];
+			}else {
+				$response = ["success" => $success, "message" => "noActivite"];
+			}
+		}else {
+			$response = ["success" => $success];
+		}
+
+		return $response;
+	}
+
+	public function REQActiviteDash_Finish($score, $idEquipe, $idUser, $idActivite){
+		$success = 0;
+
+		$request = $this->bdd->prepare("UPDATE equipe SET equipe.scoreEquipe = ? WHERE equipe.idEquipe = ?");
+		if ($request->execute(array($score, $idEquipe))) {
+			$request = $this->bdd->prepare("UPDATE gerer SET gerer.activiteFini = ? WHERE gerer.idEtudiant = ?");
+			if ($request->execute(array($idUser))) {
+				$request = $this->bdd->prepare("UPDATE participer SET participer.effectuer = 1 WHERE participer.idEquipe = ? and participer.idActivite = ?");
+				if ($request->execute(array($idEquipe, $idActivite))) {
+					$success = 1;
+				}
+			}
+		}
+
+		return $success;
 	}
 
 }

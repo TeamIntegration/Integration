@@ -61,6 +61,10 @@ class Connexion
         }
           break;
       }
+    }else {
+      $success = 2;
+      $response = ["success" => $success];
+
     }
 
     if ($success == 0) {
