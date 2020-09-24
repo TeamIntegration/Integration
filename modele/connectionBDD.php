@@ -270,7 +270,7 @@ class accesBD
 		$success = 0;
 		$i = 0;
 
-		$request = $this->bdd->prepare("SELECT activite.libelleActivite, activite.lieuActivite, participer.tour, participer.effectuer FROM activite, participer, 1SIO, etudiant WHERE activite.idActivite = participer.idActivite AND participer.idEquipe = 1sio.idEquipe AND 1sio.idEtudiant = etudiant.idEtudiant AND etudiant.emailEtudiant = ?");
+		$request = $this->bdd->prepare("SELECT activite.libelleActivite, activite.lieuActivite, participer.tour, participer.effectuer FROM activite, participer, 1SIO, etudiant WHERE activite.idActivite = participer.idActivite AND participer.idEquipe = 1sio.idEquipe AND 1sio.idEtudiant = etudiant.idEtudiant AND etudiant.idEtudiant = ?");
 		if ($request->execute(array($emailUser))) {
 			if ($request->rowCount() > 0) {
 				while ($result = $request->fetch()) {

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$score = 1000;
+$score = $_POST["score"];
 
 require '../../modele/connectionBDD.php';
 include '../../modele/class_gerant.php';
