@@ -14,6 +14,7 @@ if (isset($_SESSION["user"]) == false ) {
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="assets/css/activite.css">
     <link rel="stylesheet" href="assets/css/leaderBoard.css">
+    <link rel="stylesheet" href="assets/css/activite_dashboard.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
   <body>

@@ -2,6 +2,8 @@
 session_start();
 
 include '../modele/connectionBDD.php';
+include '../modele/class_gerant.php';
+include_once('../modele/class_user.php');
 //on Recupere le tour.
 $myConnexion = new AccesBd();
 $ready = false;
@@ -48,13 +50,13 @@ if ($ready == true) {
   <div class="switcher_score_container">
     <div class="switcher_container">
       <div class="selector-left" id="selector_add">
-        <img src="../assets/icons/triangle_arrow_127px.png" onclick="IncrementScore('less')">
+        <img src="../assets/icons/triangle_arrow_127px.png" onclick="IncrementScore("less")">
       </div>
       <div class="switcher_score">
         <input type="number" name="score" id="score" value="0">
       </div>
       <div class="selector-right" id="selector_remove">
-        <img src="../assets/icons/triangle_arrow_127px.png" onclick="IncrementScore('more')">
+        <img src="../assets/icons/triangle_arrow_127px.png" onclick="IncrementScore("more")">
       </div>
     </div>
     <div class="switcher_validate">
