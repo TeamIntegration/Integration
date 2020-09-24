@@ -18,6 +18,10 @@ class Gerant extends User
   public function GET_IdActivite(){
     return $this->idActivite;
   }
+
+  public function GET_IdUser(){
+    return parent::GET_Id();
+  }
 }
 
 

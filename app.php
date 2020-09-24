@@ -16,6 +16,7 @@ if (isset($_SESSION["user"]) == false ) {
     <link rel="stylesheet" href="assets/css/leaderBoard.css">
     <link rel="stylesheet" href="assets/css/activite_dashboard.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script type="text/javascript" src="assets/js/activiteDashboard.js"></script>
   </head>
   <body>
     <main>

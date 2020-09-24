@@ -24,3 +24,26 @@ function ValiderScore(){
     alert("Le nombre n'est pas accepté.");
   }
 }
+
+function Terminer(){
+  var scoreTotal = parseInt(document.getElementById('scoreTotal').innerHTML, 10);
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200){
+      console.log(this.response);
+      var res = this.response;
+
+      if (res.html != "") {
+        document.getElementsByTagName('main')[0].innerHTML = res.html;
+      }
+
+    }else if (this.readyState == 4) {
+      alert("Une erreur est survenue..");
+    }
+  };
+
+  xhr.open("POST", "assets/function/activiteDashboard_Terminer", true);
+  xhr.responseType = "json";
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send("score=" + encodeURI(score));
+}

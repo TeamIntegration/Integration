@@ -105,9 +105,7 @@ if ($liste_load["success"] == 1) {
 
 }else {
   if ($liste_load["errorMessage"] != "") {
-    $html = '<h1>'.$liste_load["errorMessage"].'<h1>';
-  }else {
-    $html = "<h1>Erreur!<h1>";
+    $html = '<h4 class="errorMessage">'.$liste_load["errorMessage"].'<h4>';
   }
 }
 

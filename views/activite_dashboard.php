@@ -12,25 +12,34 @@ $error = false;
 $myUser = unserialize($_SESSION['user']);
 $idActivite = $myUser->GET_IdActivite();
 
-$resultTour = ["success" => 1, "tour" => 1];
-//$resultTour = $myConnexion->REQTour_tour();
+
+$resultTour = $myConnexion->REQTour_tour();
 if ($resultTour["success"] == 1) {
   $tour = $resultTour["tour"];
+  if ($tour > 0) {
+    $resultIdEquipe = $myConnexion->REQActiviteDash_IdEquipeActivite($idActivite, $tour);
+    if ($resultIdEquipe["success"] == 1) {
+      if ($resultIdEquipe["message"] != "noActivite") {
+        $idEquipe = $resultIdEquipe["idEquipe"];
 
-  $resultIdEquipe = $myConnexion->REQActiviteDash_IdEquipeActivite($idActivite, $tour);
-  if ($resultIdEquipe["success"] == 1) {
-    if (isset($resultIdEquipe["message"]) == false) {
-      $idEquipe = $resultIdEquipe["idEquipe"];
-
-      $resultScoreEquipe = $myConnexion->REQActiviteDash_ScoreEquipe($idEquipe);
-      if ($resultScoreEquipe["success"] == 1) {
-        $score = $resultScoreEquipe["score"];
-        $ready = true;
+        $resultScoreEquipe = $myConnexion->REQActiviteDash_ScoreEquipe($idEquipe);
+        if ($resultScoreEquipe["success"] == 1) {
+          $score = $resultScoreEquipe["score"];
+          if ($myConnexion->REQActiviteDash_VerifActive($idEquipe, $idActivite) == 1) {
+            $html = '<h4 class="successMessage">Vous avez terminé votre tour.</h4>';
+          }else {
+            $ready = true;
+            $_SESSION['idEquipe'] = serialize($idEquipe);
+          }
+        }
+      }else {
+        $html = '<h4 class="errorMessage">Aucune activité disponible!</h4>';
       }
     }else {
-      $error = true;
-      //PAS DACTIVITE RESTANTE
+      $html = '<h4 class="errorMessage">Une erreur s\'est produite!</h4>';
     }
+  }else {
+    $html = '<h4 class="errorMessage">Les activités n\'ont pas encore débuté!</h4>';
   }
 }
 //recup info by id Activite;
@@ -50,13 +59,13 @@ if ($ready == true) {
   <div class="switcher_score_container">
     <div class="switcher_container">
       <div class="selector-left" id="selector_add">
-        <img src="../assets/icons/triangle_arrow_127px.png" onclick="IncrementScore("less")">
+        <img src="assets/icons/triangle_arrow_127px.png" onclick="IncrementScore(\'less\')">
       </div>
       <div class="switcher_score">
         <input type="number" name="score" id="score" value="0">
       </div>
       <div class="selector-right" id="selector_remove">
-        <img src="../assets/icons/triangle_arrow_127px.png" onclick="IncrementScore("more")">
+        <img src="assets/icons/triangle_arrow_127px.png" onclick="IncrementScore(\'more\')">
       </div>
     </div>
     <div class="switcher_validate">
@@ -64,9 +73,8 @@ if ($ready == true) {
     </div>
   </div>
   <div class="final_validate">
-    <input type="button" name="final_sender" value="TERMINER">
-  </div>
-  <script type="text/javascript" src="../assets/js/activiteDashboard.js"></script>';
+    <input type="button" name="final_sender" value="TERMINER" onclick="Terminer()">
+  </div>';
 }
 
 $response = ["html" => $html];
