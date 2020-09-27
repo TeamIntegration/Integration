@@ -7,17 +7,17 @@ class Activite
 {
 
   private $id;
-  private $name;
+  private $libelle;
   private $lieu;
-  //private $tour;
+  private $tour;
   private $effectuer;
 
-  function __construct($myId, $myName, $myLieu, $myEffectuer)
+  function __construct($myId, $myLibelle, $myLieu, $myTour, $myEffectuer)
   {
     $this->id = $myId;
-    $this->name = $myName;
+    $this->libelle = $myLibelle;
     $this->lieu = $myLieu;
-    //$this->tour = $myTour;
+    $this->tour = $myTour;
     $this->effectuer = $myEffectuer;
   }
 
@@ -25,24 +25,20 @@ class Activite
     return $this->id;
   }
 
-  public function GET_Name(){
-    return $this->name;
+  public function GET_libelle(){
+    return $this->libelle;
   }
 
   public function GET_Lieu(){
     return $this->lieu;
   }
 
-/*  public function GET_Tour(){
+  public function GET_Tour(){
     return $this->tour;
-  }*/
+  }
 
   public function GET_Effectuer(){
     return $this->effectuer;
-  }
-
-  public function SET_Effectuer(){
-    $this->effectuer = true;
   }
 }
 

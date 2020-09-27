@@ -266,27 +266,36 @@ class accesBD
 
 	//SELECT activite.libelleActivite, activite.lieuActivite, participer.tour, participer.effectuer FROM activite, participer, 1SIO, etudiant WHERE activite.idActivite = participer.idActivite AND participer.idEquipe = 1sio.idEquipe AND 1sio.idEtudiant = etudiant.idEtudiant AND etudiant.emailEtudiant = "baptiste.lecat44@gmail.com";
 
-	function REQActivite_Load($emailUser){
+	function REQActivite_Load($idEquipe){
 		$success = 0;
 		$i = 0;
 
-		$request = $this->bdd->prepare("SELECT activite.libelleActivite, activite.lieuActivite, participer.tour, participer.effectuer FROM activite, participer, 1SIO, etudiant WHERE activite.idActivite = participer.idActivite AND participer.idEquipe = 1sio.idEquipe AND 1sio.idEtudiant = etudiant.idEtudiant AND etudiant.idEtudiant = ?");
-		if ($request->execute(array($emailUser))) {
-			if ($request->rowCount() > 0) {
-				while ($result = $request->fetch()) {
-					$liste_activite[$i] = ["libelleActivite" => $result["libelleActivite"], "lieuActivite" => $result["lieuActivite"], "tour" => $result["tour"], "effectuer" => $result["effectuer"]];
-				}
-				$success = 1;
-				$response = ["success" => $success, "liste_activite" => $liste_activite];
-			}else {
-				$response = ["success" => $success];
+		$request = $this->bdd->prepare("SELECT participer.tour, participer.effectuer, participer.idActivite FROM participer WHERE participer.idEquipe = ? ORDER BY participer.tour ASC");
+		if ($request->execute(array($idEquipe))) {
+			while ($result = $request->fetch()) {
+				$liste_activite[$i] = ["idActivite" => $result["idActivite"], "tour" => $result["tour"], "effectuer" => $result["effectuer"]];
+				$i++;
 			}
-		}else {
+			foreach ($liste_activite as $index => $value) {
+				$request = $this->bdd->prepare("SELECT activite.libelleActivite, activite.lieuActivite FROM activite WHERE activite.idActivite = ?");
+				if ($request->execute(array($value["idActivite"]))) {
+					$result = $request->fetch();
+					$liste_activite[$index] = ["idActivite" => $value["idActivite"], "libelleActivite" => $result["libelleActivite"], "lieuActivite" => $result["lieuActivite"], "tour" => $value["tour"], "effectuer" => $value["effectuer"]];
+					$success = 1;
+				}
+			}
+			if ($success == 1) {
+				$response = ["success" => $success, "liste_activite" => $liste_activite];
+			}
+		}
+
+		if ($success == 0) {
 			$response = ["success" => $success];
 		}
 
 		return $response;
 	}
+
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//----------------------------REQUEST ACTIVITE_DASHBOARD--------------------------------------------------------------------------------------------------------------------------------------------------
