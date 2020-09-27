@@ -20,17 +20,17 @@ class accesBD
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		/*$this->hote="mysql-integration.alwaysdata.net";
+		$this->hote="mysql-integration.alwaysdata.net";
 		$this->port="";
 		$this->login="214164";
 		$this->passwd="baptiste24590";
-		$this->base="integration_bdd";*/
+		$this->base="integration_bdd";
 
-		$this->hote="localhost";
+		/*$this->hote="localhost";
 		$this->port="";
 		$this->login="root";
 		$this->passwd="";
-		$this->base="integration";
+		$this->base="integration";*/
 
 
 		$this->connexion();
