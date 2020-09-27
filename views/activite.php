@@ -6,6 +6,7 @@ session_start();
 include '../modele/class_activite.php';
 include '../modele/connectionBDD.php';
 include '../modele/class_premiereAnnee.php';
+include '../modele/class_accompagnant.php';
 include '../modele/class_gerant.php';
 include_once('../modele/class_user.php');
 

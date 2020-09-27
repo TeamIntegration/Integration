@@ -20,11 +20,18 @@ class accesBD
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->hote="mysql-integration.alwaysdata.net";
+		/*$this->hote="mysql-integration.alwaysdata.net";
 		$this->port="";
 		$this->login="214164";
 		$this->passwd="baptiste24590";
-		$this->base="integration_bdd";
+		$this->base="integration_bdd";*/
+
+		$this->hote="localhost";
+		$this->port="";
+		$this->login="root";
+		$this->passwd="";
+		$this->base="integration";
+
 
 		$this->connexion();
 
@@ -145,13 +152,22 @@ class accesBD
 								$success = 1;
 								$response = ["success" => $success, "rank" => "gerant"];
 							}else {
-								$success = 0;
+								$request = $this->bdd->prepare("SELECT admin.idAdmin FROM admin WHERE admin.idAdmin = ?");
+								if ($request->execute(array($idUser))) {
+									if ($request->rowCount() > 0) {
+										//C'est un Admin
+										$success = 1;
+										$response = ["success" => $success, "rank" => "admin"];
+									}else {
+										$success = 0;
+									}
+								}
 							}
 					}
 				}
 			}
 		}
-	}
+ 	}
 
 		if ($success == 0) {
 			$response = ["success" => $success];
@@ -384,6 +400,49 @@ class accesBD
 
 		return $success;
 	}
+
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------REQUEST ADMIN TOOLS--------------------------------------------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	public function REQAdmin_IdEtudiant1SIO(){
+		$success = 0;
+
+  	$request = $this->bdd->prepare("SELECT idEtudiant FROM 1sio where idEquipe = 0");
+		if ($request->execute()) {
+			if ($request->rowCount() > 0) {
+				$i=0;
+				while ($result = $request->fetch()) {
+					$liste_idEtudiant1SIO[$i] = $result['idEtudiant'];
+					$i++;
+				}
+				$success = 1;
+				$response = ["success" => $success, "liste_idEtudiant" => $liste_idEtudiant1SIO];
+			}
+		}
+
+		if ($success == 0) {
+			$response = ["success" => $success];
+		}
+
+  	return $response;
+	}
+
+	public function REQAdmin_SetIdEquipe($liste_Equipe_Etudiant){
+
+		$liste_idEtudiant = $liste_Equipe_Etudiant["listeIdEtudiant"];
+		$liste_idEquipe = $liste_Equipe_Etudiant["listeIdEquipe"];
+
+		foreach ($liste_idEtudiant as $index => $value) {
+			$request = $this->bdd->prepare("UPDATE 1sio SET 1sio.idEquipe= ? WHERE 1sio.idEtudiant = ?");
+			$request->execute(array($liste_idEquipe[$index], $value));
+		}
+	}
+
+	/*public function REQAdmin_InitScore($liste_Equipe_Etudiant){
+		$liste
+	}*/
 
 }
 

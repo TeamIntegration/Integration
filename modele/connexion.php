@@ -60,6 +60,13 @@ class Connexion
           $response = ["success" => $success, "rank" => $resultSearchRank["rank"], "nomEtudiant" => $resultLoadInfo["nomEtudiant"], "prenomEtudiant" => $resultLoadInfo["prenomEtudiant"], "emailEtudiant" => $resultLoadInfo["emailEtudiant"], "idActivite" => $resultLoadInfo["idActivite"]];
         }
           break;
+
+        case "admin":
+        if ($resultLoadInfo["success"] == 1) {
+          $success = 1;
+          $response = ["success" => $success, "rank" => $resultSearchRank["rank"], "nomEtudiant" => $resultLoadInfo["nomEtudiant"], "prenomEtudiant" => $resultLoadInfo["prenomEtudiant"], "emailEtudiant" => $resultLoadInfo["emailEtudiant"]];
+        }
+          break;
       }
     }else {
       $success = 2;

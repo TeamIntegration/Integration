@@ -10,6 +10,7 @@ include '../../modele/class_gerant.php';
 include '../../modele/class_accompagnant.php';
 include '../../modele/connexion.php';
 include '../../modele/class_premiereAnnee.php';
+include '../../modele/class_admin.php';
 
 $myConnexion = new Connexion($email, $password);
 $resultConnexion = $myConnexion->Load_Account();
@@ -26,6 +27,9 @@ if ($resultConnexion["success"] == 1) {
         break;
       case "gerant":
       $myUser = new Gerant($idUser, $resultRecupInfo["nomEtudiant"], $resultRecupInfo["prenomEtudiant"], $resultRecupInfo["emailEtudiant"], $resultRecupInfo["idActivite"]);
+        break;
+      case "admin":
+      $myUser = new Admin($idUser, $resultRecupInfo["nomEtudiant"], $resultRecupInfo["prenomEtudiant"], $resultRecupInfo["emailEtudiant"]);
         break;
     }
 

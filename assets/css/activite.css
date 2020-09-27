@@ -1,15 +1,16 @@
 
 .wrapper_activite{
-  min-height: 90%;
   width: 100%;
   display: flex;
   flex-direction: column;
   padding-top: 10%;
-  padding-bottom: 5%;
+  padding-bottom: 25%;
 }
 
 .container_activite{
   height: 150px;
+  min-height: 150px;
+  min-width: 80%;
   width: 85%;
   display: flex;
   flex-direction: column;
@@ -32,4 +33,18 @@
   color: #fff;
   font-family: "Play", sans-serif;
   font-size: 25px;
+}
+
+@media screen and (min-width: 600px){
+
+  .wrapper_activite{
+    padding-bottom: 15%;
+  }
+}
+
+@media screen and (min-width: 600px){
+
+  .wrapper_activite{
+    padding-bottom: 10%;
+  }
 }
