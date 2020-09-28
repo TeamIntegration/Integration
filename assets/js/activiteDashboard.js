@@ -41,7 +41,7 @@ function Terminer(){
     }
   };
 
-  xhr.open("POST", "assets/function/activiteDashboard_Terminer", true);
+  xhr.open("POST", "assets/function/activiteDashboard_Terminer.php", true);
   xhr.responseType = "json";
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.send("score=" + encodeURI(scoreTotal));

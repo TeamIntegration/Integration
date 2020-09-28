@@ -144,6 +144,19 @@ main{
   font-size: 26px;
 }
 
+.equipe_info_container{
+  height: 60px;
+  width: 100%;
+  background-color: red;
+  display: flex;
+}
+
+.equipe_info_container h2{
+  margin: auto;s
+  color: #fff;
+  font-family: "Play", sans-serif;
+}
+
 @media screen and (min-width: 425px){
 
   .final_validate input{

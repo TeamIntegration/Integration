@@ -19,6 +19,7 @@ if ($resultTour["success"] == 1) {
   if ($tour > 0) {
     $resultIdEquipe = $myConnexion->REQActiviteDash_IdEquipeActivite($idActivite, $tour);
     if ($resultIdEquipe["success"] == 1) {
+      //Condition pour le nomAccompagnant.
       if ($resultIdEquipe["message"] != "noActivite") {
         $idEquipe = $resultIdEquipe["idEquipe"];
 
@@ -52,7 +53,9 @@ if ($ready == true) {
   $html = '<div class="page_title">
     <h1>Gestion<span>Activite</span></h1>
   </div>
-
+  <div class="equipe_info_container">
+    <h2>Nom Accompagnant:'.$nomAccompagnant.'</h2>
+  </div>
   <div class="score_container">
     <h2 id="scoreTotal">'.$score.'</h2>
   </div>
