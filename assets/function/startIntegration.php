@@ -3,6 +3,7 @@
 include '../../modele/connectionBDD.php';
 
 $myConnexion = new AccesBD();
+$success = 0;
 
 $tableau22 = $myConnexion->REQAdmin_IdEtudiant1SIO();
 
@@ -166,14 +167,16 @@ for ($j=0; $j <$nbEquipeA3 ; $j++)
   }
   $nbFirstEquipe++;
 }
-var_dump($listeEquipe);
 $tableEquipe=['listeIdEtudiant' =>$listeIdMelange,'listeIdEquipe'=>$listeEquipe];
 $myConnexion->REQAdmin_SetIdEquipe($tableEquipe);
 
+$resultatInit = $myConnexion->REQAdmin_InitScore($tableEquipe);
+var_dump($tableEquipe['listeIdEquipe']);
+$resultatSetAccompagnant = $myConnexion->REQAdmin_SetAccompagnantEquipe($tableEquipe);
+if ($resultatSetAccompagnant == 1) {
+  $success = 1;
 }
-else
-{
-  echo "prout";
+
 }
 
 //random_int ( int $min , int $max ) : int
@@ -182,6 +185,10 @@ function melangeEtudiant($liste)
   shuffle($liste);
   return $liste;
 }
+
+$response = ["success" => $success];
+
+echo json_encode($response);
 
 
  ?>
