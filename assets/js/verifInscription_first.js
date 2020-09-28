@@ -5,11 +5,9 @@ document.getElementById('form').addEventListener("submit", function(e) {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function(){
     if(this.readyState == 4 && this.status == 200){
-      console.log(this.response);
       var res = this.response;
 
       if (res.success == 1) {
-        alert("first etape");
         document.location = 'inscription_second.php';
       }
 
