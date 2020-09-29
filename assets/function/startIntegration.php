@@ -171,7 +171,6 @@ $tableEquipe=['listeIdEtudiant' =>$listeIdMelange,'listeIdEquipe'=>$listeEquipe]
 $myConnexion->REQAdmin_SetIdEquipe($tableEquipe);
 
 $resultatInit = $myConnexion->REQAdmin_InitScore($tableEquipe);
-var_dump($tableEquipe['listeIdEquipe']);
 $resultatSetAccompagnant = $myConnexion->REQAdmin_SetAccompagnantEquipe($tableEquipe);
 if ($resultatSetAccompagnant == 1) {
   $success = 1;
