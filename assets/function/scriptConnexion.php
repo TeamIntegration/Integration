@@ -2,7 +2,9 @@
 session_start();
 
 $email = $_POST['email'];
+
 $password = hash('sha256', $_POST['motDePasse']);
+
 
 $success = 0;
 
@@ -42,7 +44,7 @@ if ($resultConnexion["success"] == 1) {
   }
 }
 
-$response = ["success" => $success, "password" => $password];
+$response = ["success" => $success];
 
 echo json_encode($response);
 

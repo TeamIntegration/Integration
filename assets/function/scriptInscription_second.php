@@ -16,7 +16,7 @@ include '../../modele/class_premiereAnnee.php';
 $success = 0;
 $message = "";
 
-if ($code == $code1SIO || $code == $code2SIO) {
+if (($code == $code1SIO && $promo == "1SIO") || ($code == $code2SIO && $promo == "2SIO")) {
   //Instanciation d'un nouvel object Inscription.
   $inscription = new Inscription($form_first["name"], $form_first["firstname"], $form_first["email"], $form_first["password"], $promo);
   $resultatPushInscription = $inscription->Create_Account();//On PUSH les data.
