@@ -42,7 +42,7 @@
   }
 }
 
-@media screen and (min-width: 600px){
+@media screen and (min-width: 768px){
 
   .wrapper_activite{
     padding-bottom: 10%;

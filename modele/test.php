@@ -6,6 +6,6 @@ include 'connectionBDD.php';
 $mydb = new accesBD();
 //$connexion = new Connexion("baptistte.lecat44@gmail.com", hash('sha256', "ert"));
 
-var_dump($mydb->REQInscription_CreateAccount("test", "test", "email", "password", "1SIO"));
+var_dump($mydb->REQAdmin_GetLesActivites());
 
  ?>

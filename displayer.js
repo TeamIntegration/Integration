@@ -43,6 +43,8 @@ function displayLeaderBoard(){
         document.getElementById('activite').src = "assets/icons/joystickGrey_127px.png";
         document.getElementById('accompagnant').src = "assets/icons/jerseyGrey_127px.png";
         document.getElementById('gerant').src = "assets/icons/whistleGrey_127px.png";
+        document.getElementById('admin_Settings').src = "assets/icons/wrenchGrey_127px.png";
+        document.getElementById('admin_Activite').src = "assets/icons/joystickGrey_127px.png";
       }
 
     } else if (this.readyState == 4) {
@@ -128,7 +130,8 @@ function displayAdminSettings(){
         document.getElementsByTagName('main')[0].innerHTML = res.html;
 
         //Affichage de l'icon en red et reset de la précédente.
-        document.getElementById('gerant').src = "assets/icons/whistleRed_127px.png";
+        document.getElementById('admin_Settings').src = "assets/icons/wrenchRed_127px.png";
+        document.getElementById('admin_Activite').src = "assets/icons/joystickGrey_127px.png";
         document.getElementById('leaderBoard').src = "assets/icons/trophyGrey_127px.png";
       }
 
@@ -156,7 +159,8 @@ function displayAdminActivite(){
         document.getElementsByTagName('main')[0].innerHTML = res.html;
 
         //Affichage de l'icon en red et reset de la précédente.
-        document.getElementById('gerant').src = "assets/icons/whistleRed_127px.png";
+        document.getElementById('admin_Settings').src = "assets/icons/wrenchGrey_127px.png";
+        document.getElementById('admin_Activite').src = "assets/icons/joystickRed_127px.png";
         document.getElementById('leaderBoard').src = "assets/icons/trophyGrey_127px.png";
       }
 
@@ -165,7 +169,7 @@ function displayAdminActivite(){
     }
     };
 
-    xhr.open("POST", "views/admin_activite.php", true);
+    xhr.open("POST", "views/activite_admin.php", true);
     xhr.responseType = "json";
     // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send();

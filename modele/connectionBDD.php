@@ -504,76 +504,101 @@ class accesBD
 	}
 
 	public function REQAdmin_SetAccompagnantEquipe($tableEquipe)
-{
-  $success=0;
-  $listeIdEquipe=array();
-  $tableEquipe= $tableEquipe['listeIdEquipe'];
-  foreach ($tableEquipe as $index => $monId)
-  {
-    if (in_array($monId, $listeIdEquipe)==false)
-    {
-      array_push($listeIdEquipe, $monId);
-    }
-  }
-  foreach ($listeIdEquipe as $key => $monId)
-  {
-		$resultatAccompagnant = $this->REQAdmin_GetLesAccompagnant();
-		if ($resultatAccompagnant["success"] == 1) {
-			$listeIdAccompagnant = $resultatAccompagnant["liste_idAccompagnant"];
-			$request=$this->bdd->prepare('UPDATE accompagner SET idEquipe = ? WHERE idEtudiant= ?');
-			if ($request->execute(array($monId, $listeIdAccompagnant[$key])))
-			{
-				$success=1;
+	{
+  	$success=0;
+  	$listeIdEquipe=array();
+  	$tableEquipe= $tableEquipe['listeIdEquipe'];
+  	foreach ($tableEquipe as $index => $monId)
+  	{
+    	if (in_array($monId, $listeIdEquipe)==false)
+    	{
+      	array_push($listeIdEquipe, $monId);
+    	}
+  	}
+  	foreach ($listeIdEquipe as $key => $monId)
+  	{
+			$resultatAccompagnant = $this->REQAdmin_GetLesAccompagnant();
+			if ($resultatAccompagnant["success"] == 1) {
+				$listeIdAccompagnant = $resultatAccompagnant["liste_idAccompagnant"];
+				$request=$this->bdd->prepare('UPDATE accompagner SET idEquipe = ? WHERE idEtudiant= ?');
+				if ($request->execute(array($monId, $listeIdAccompagnant[$key])))
+				{
+					$success=1;
+				}
 			}
-		}
-  }
+  	}
 
-	return $success;
-}
+		return $success;
+	}
 
-public function REQAdmin_GetLesAccompagnant()
-{
- $request = $this->bdd->prepare("SELECT idEtudiant FROM accompagner");
-  if ($request->execute())
-  {
-  if ($request->rowCount() > 0)
-  {
-      $i=0;
-      while ($result = $request->fetch())
-      {
-        $liste_idAccompagnant[$i] = $result['idEtudiant'];
-        $i++;
-      }
-      $success = 1;
-      $response = ["success" => $success, "liste_idAccompagnant" => $liste_idAccompagnant];
-    }
-  }
+	public function REQAdmin_GetLesAccompagnant(){
 
-  if ($success == 0)
-  {
-    $response = ["success" => $success];
-  }
+ 		$request = $this->bdd->prepare("SELECT idEtudiant FROM accompagner");
+  	if ($request->execute())
+  	{
+  		if ($request->rowCount() > 0){
+      	$i=0;
+      	while ($result = $request->fetch()){
+        	$liste_idAccompagnant[$i] = $result['idEtudiant'];
+        	$i++;
+      	}
+      	$success = 1;
+      	$response = ["success" => $success, "liste_idAccompagnant" => $liste_idAccompagnant];
+    	}
+  	}
 
-  return $response;
+  	if ($success == 0){
+    	$response = ["success" => $success];
+  	}
 
-}
+  	return $response;
+	}
 
-public function REQAdmin_SetEquipeNom(){
-	$success = 0;
+	public function REQAdmin_SetEquipeNom(){
+		$success = 0;
 
-	$request = $this->bdd->prepare("SELECT etudiant.nomEtudiant, accompagner.idEquipe FROM accompagner, etudiant WHERE accompagner.idEtudiant = etudiant.IdEtudiant");
-	if ($request->execute()) {
-		while ($result = $request->fetch()) {
-			if (intval($result["idEquipe"]) != 0) {
-				$request2 = $this->bdd->prepare("UPDATE equipe SET equipe.nomEquipe = ? WHERE equipe.idEquipe = ?");
-				if ($request2->execute(array($result["nomEtudiant"], $result["idEquipe"]))) {
-					$success = 1;
+		$request = $this->bdd->prepare("SELECT etudiant.nomEtudiant, accompagner.idEquipe FROM accompagner, etudiant WHERE accompagner.idEtudiant = etudiant.IdEtudiant");
+		if ($request->execute()) {
+			while ($result = $request->fetch()) {
+				if (intval($result["idEquipe"]) != 0) {
+					$request2 = $this->bdd->prepare("UPDATE equipe SET equipe.nomEquipe = ? WHERE equipe.idEquipe = ?");
+					if ($request2->execute(array($result["nomEtudiant"], $result["idEquipe"]))) {
+						$success = 1;
+					}
 				}
 			}
 		}
+		return $success;
 	}
-	return $success;
-}
+
+	public function REQAdmin_GetLesActivites(){
+		$success = 0;
+		$liste_idActivite = array();
+
+		$request = $this->bdd->prepare("SELECT gerer.idActivite FROM gerer");
+		if ($request->execute()) {
+			while ($result = $request->fetch()) {
+				array_push($liste_idActivite, $result["idActivite"]);
+			}
+
+			foreach ($liste_idActivite as $index => $value) {
+				$request2 = $this->bdd->prepare("SELECT gerer.activiteFini, activite.libelleActivite, activite.lieuActivite FROM gerer, activite WHERE activite.idActivite = gerer.idActivite and gerer.idActivite = ?");
+				if ($request2->execute(array($value))) {
+					$idActivite = $result["idActivite"];
+					$result2 = $request2->fetch();
+					$liste_activite[$index] = ["idActivite" => $idActivite, "libelleActivite" => $result2["libelleActivite"], "lieuActivite" => $result2["lieuActivite"], "tour" => 0, "effectuer" => $result2["activiteFini"]];
+				}
+			}
+			$success = 1;
+			$response = ["success" => $success, "liste_activite" => $liste_activite];
+		}
+
+		if ($success == 0) {
+			$response = ["success" => $success];
+		}
+
+		return $response;
+	}
 
 }
 

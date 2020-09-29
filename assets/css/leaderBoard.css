@@ -27,7 +27,6 @@ html, body, main{
 }
 
 .wrapper_leaderBoard{
-  min-height: 90%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -111,6 +110,10 @@ html, body, main{
     height: 55%;
   }
 
+  .wrapper_leaderBoard{
+    padding-bottom: 25%;
+  }
+
 }
 
 @media screen and (min-width: 640px){
@@ -121,6 +124,10 @@ html, body, main{
 
   .container_equipe{
     height: 200px;
+  }
+
+  .wrapper_leaderBoard{
+    padding-bottom: 20%;
   }
 }
 
@@ -145,6 +152,10 @@ html, body, main{
   .container_icon img{
     height: 80%;
   }
+
+  .wrapper_leaderBoard{
+    padding-bottom: 15%;
+  }
 }
 
 @media screen and (min-width: 1024px){
@@ -152,6 +163,10 @@ html, body, main{
   .container_icon img{
     height: 80%;
     width: 60%;
+  }
+
+  .wrapper_leaderBoard{
+    padding-bottom: 10%;
   }
 }
 
