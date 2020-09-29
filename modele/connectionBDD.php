@@ -20,17 +20,17 @@ class accesBD
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->hote="mysql-integration.alwaysdata.net";
+		/*$this->hote="mysql-integration.alwaysdata.net";
 		$this->port="";
 		$this->login="214164";
 		$this->passwd="baptiste24590";
-		$this->base="integration_bdd";
+		$this->base="integration_bdd";*/
 
-		/*$this->hote="localhost";
+		$this->hote="localhost";
 		$this->port="";
 		$this->login="root";
 		$this->passwd="";
-		$this->base="integration";*/
+		$this->base="integration";
 
 
 		$this->connexion();
@@ -222,6 +222,21 @@ class accesBD
 					$response = ["success" => $success];
 				}
 				break;
+
+				case "admin":
+					$request = $this->bdd->prepare("SELECT etudiant.nomEtudiant, etudiant.prenomEtudiant, etudiant.emailEtudiant FROM etudiant WHERE etudiant.idEtudiant = ?");
+					if ($request->execute(array($idUser))) {
+						if ($request->rowCount() > 0) {
+							$result = $request->fetch();
+							$success = 1;
+							$response = ["success" => $success, "nomEtudiant" => $result["nomEtudiant"], "prenomEtudiant" => $result["prenomEtudiant"], "emailEtudiant" => $result["emailEtudiant"]];
+						}
+					}
+
+					if ($success == 0) {
+						$response = ["success" => $success];
+					}
+					break;
 		}
 
 		return $response;
@@ -440,9 +455,90 @@ class accesBD
 		}
 	}
 
-	/*public function REQAdmin_InitScore($liste_Equipe_Etudiant){
-		$liste
-	}*/
+	public function REQAdmin_SetTour($nbTour){
+		$success = 0;
+
+		$request = $this->bdd->prepare("UPDATE tour SET nbtour = ?");
+		if ($request->execute(array($nbTour))) {
+			$success = 1;
+		}
+		$response = ["success" => $success];
+
+		return $response;
+	}
+
+	public function REQAdmin_ResetActivite(){
+
+		$request = $this->bdd->prepare("UPDATE gerer SET activiteFini = 0");
+		$request->execute();
+	}
+
+	public function REQAdmin_InitScore($liste_Equipe_Etudiant){
+		$success = 0;
+		$listeEquipe = $liste_Equipe_Etudiant["listeIdEquipe"];
+
+		foreach ($listeEquipe as $key => $value) {
+			$request = $this->bdd->prepare("UPDATE equipe SET equipe.scoreEquipe = 0 WHERE equipe.idEquipe = ?");
+			$request->execute(array($value));
+		}
+
+		return $success;
+	}
+
+	public function REQAdmin_SetAccompagnantEquipe($tableEquipe)
+{
+  $success=0;
+  $listeIdEquipe=array();
+  $tableEquipe= $tableEquipe['listeIdEquipe'];
+  foreach ($tableEquipe as $index => $monId)
+  {
+    if (in_array($monId, $listeIdEquipe)==false)
+    {
+      array_push($listeIdEquipe, $monId);
+    }
+  }
+  foreach ($listeIdEquipe as $key => $monId)
+  {
+		$resultatAccompagnant = $this->REQAdmin_GetLesAccompagnant();
+		if ($resultatAccompagnant["success"] == 1) {
+			$listeIdAccompagnant = $resultatAccompagnant["liste_idAccompagnant"];
+			$request=$this->bdd->prepare('UPDATE accompagner SET idEquipe = ? WHERE idEtudiant= ?');
+			if ($request->execute(array($monId, $listeIdAccompagnant[$key])))
+			{
+				$success=1;
+			}
+		}
+  }
+
+	return $success;
+}
+
+public function REQAdmin_GetLesAccompagnant()
+{
+ $request = $this->bdd->prepare("SELECT idEtudiant FROM accompagner");
+  if ($request->execute())
+  {
+  if ($request->rowCount() > 0)
+  {
+      $i=0;
+      while ($result = $request->fetch())
+      {
+        $liste_idAccompagnant[$i] = $result['idEtudiant'];
+        $i++;
+      }
+      $success = 1;
+      $response = ["success" => $success, "liste_idAccompagnant" => $liste_idAccompagnant];
+    }
+  }
+
+  if ($success == 0)
+  {
+    $response = ["success" => $success];
+  }
+
+  return $response;
+
+}
 
 }
 

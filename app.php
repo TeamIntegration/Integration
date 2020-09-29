@@ -16,9 +16,10 @@ if (isset($_SESSION["user"]) == false ) {
     <link rel="stylesheet" href="assets/css/leaderBoard.css">
     <link rel="stylesheet" href="assets/css/activite_dashboard.css">
 
-    <link rel="stylesheet" href="assets/css/admin_activite.css">
+    <link rel="stylesheet" href="assets/css/admin_settings.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script type="text/javascript" src="assets/js/activiteDashboard.js"></script>
+    <script type="text/javascript" src="assets/js/admin_settings.js"></script>
   </head>
   <body>
     <main>
@@ -67,16 +68,15 @@ if (isset($_SESSION["user"]) == false ) {
           echo $html;
             break;
 
-          case 'Gerant':
+          case 'Admin':
           $html = '<img src="assets\icons\joystickGrey_127px.png" id="activite" class="menu-link" style="display: none;" onclick="displayActivite()">
           <img src="assets\icons\wrenchRed_127px.png" id="admin_Settings" class="menu-link" onclick="displayAdminSettings()">
-          <img src="assets\icons\wrenchRed_127px.png" id="admin_Activite" class="menu-link" onclick="displayAdminActivite()">
-          <img src="assets\icons\wrenchRed_127px.png" id="admin_LeaderBoard" class="menu-link" onclick="displayAdminLeaderBoard()">
+          <img src="assets\icons\joystickGrey_127px.png" id="admin_Activite" class="menu-link" onclick="displayAdminActivite()">
           <img src="assets\icons\jerseyGrey_127px.png" id="accompagnant" class="menu-link" style="display: none;" onclick="displayEquipe()">
-          <img src="assets\icons\whistleRed_127px.png" id="gerant" class="menu-link" onclick="displayActiviteDashboard()">
+          <img src="assets\icons\whistleRed_127px.png" id="gerant" class="menu-link" style="display: none;" onclick="displayActiviteDashboard()">
           <img src="assets\icons\trophyGrey_127px.png" id="leaderBoard" class="menu-link" onclick="displayLeaderBoard()">
           <script type="text/javascript" src="displayer.js"></script>
-          <script type="text/javascript">displayActiviteDashboard();</script>';
+          <script type="text/javascript">displayAdminSettings();</script>';
           echo $html;
             break;
         }
