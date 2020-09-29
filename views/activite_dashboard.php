@@ -29,6 +29,9 @@ if ($resultTour["success"] == 1) {
           if ($myConnexion->REQActiviteDash_VerifActive($idEquipe, $idActivite) == 1) {
             $html = '<h4 class="successMessage">Vous avez terminé votre tour.</h4>';
           }else {
+            if ($myConnexion->REQActiviteDash_GetNomEquipe($idEquipe)) {
+              // code...
+            }
             $ready = true;
             $_SESSION['idEquipe'] = serialize($idEquipe);
           }

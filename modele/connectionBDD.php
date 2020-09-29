@@ -416,6 +416,23 @@ class accesBD
 		return $success;
 	}
 
+	public function REQActiviteDash_GetNomEquipe($idEquipe){
+		$success = 0;
+
+		$request = $this->bdd->prepare("SELECT equipe.nomEquipe FROM equipe WHERE equipe.idEquipe = ?");
+		if ($request->execute(array($idEquipe))) {
+			$result = $request->fetch();
+			$success = 1;
+			$response = ["success" => $success, "nomEquipe" => $result["nomEquipe"]];
+		}
+
+		if ($success == 0) {
+			$response = ["success" => $success];
+		}
+
+		return $response;
+	}
+
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//----------------------------REQUEST ADMIN TOOLS--------------------------------------------------------------------------------------------------------------------------------------------------
@@ -538,6 +555,23 @@ public function REQAdmin_GetLesAccompagnant()
 
   return $response;
 
+}
+
+public function REQAdmin_SetEquipeNom(){
+	$success = 0;
+
+	$request = $this->bdd->prepare("SELECT etudiant.nomEtudiant, accompagner.idEquipe FROM accompagner, etudiant WHERE accompagner.idEtudiant = etudiant.IdEtudiant");
+	if ($request->execute()) {
+		while ($result = $request->fetch()) {
+			if (intval($result["idEquipe"]) != 0) {
+				$request2 = $this->bdd->prepare("UPDATE equipe SET equipe.nomEquipe = ? WHERE equipe.idEquipe = ?");
+				if ($request2->execute(array($result["nomEtudiant"], $result["idEquipe"]))) {
+					$success = 1;
+				}
+			}
+		}
+	}
+	return $success;
 }
 
 }
