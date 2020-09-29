@@ -29,11 +29,12 @@ if ($resultTour["success"] == 1) {
           if ($myConnexion->REQActiviteDash_VerifActive($idEquipe, $idActivite) == 1) {
             $html = '<h4 class="successMessage">Vous avez terminé votre tour.</h4>';
           }else {
-            if ($myConnexion->REQActiviteDash_GetNomEquipe($idEquipe)) {
-              // code...
+            $resultatGetAccompagnant = $myConnexion->REQActiviteDash_GetNomEquipe($idEquipe);
+            if ($resultatGetAccompagnant["success"] == 1) {
+              $nomEquipe = $resultatGetAccompagnant["nomEquipe"];
+              $ready = true;
+              $_SESSION['idEquipe'] = serialize($idEquipe);
             }
-            $ready = true;
-            $_SESSION['idEquipe'] = serialize($idEquipe);
           }
         }
       }else {
@@ -57,7 +58,8 @@ if ($ready == true) {
     <h1>Gestion<span>Activite</span></h1>
   </div>
   <div class="equipe_info_container">
-    <h2>Nom Accompagnant:'.$nomAccompagnant.'</h2>
+    <h2>Nom Accompagnant: '.$nomEquipe.'</h2>
+    <h2>Tour: '.$tour.'</h2>
   </div>
   <div class="score_container">
     <h2 id="scoreTotal">'.$score.'</h2>

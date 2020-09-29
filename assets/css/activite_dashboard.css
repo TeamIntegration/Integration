@@ -147,14 +147,15 @@ main{
 .equipe_info_container{
   height: 60px;
   width: 100%;
-  background-color: red;
+  background-color: #192d3e;
   display: flex;
 }
 
 .equipe_info_container h2{
-  margin: auto;s
+  margin: auto;
   color: #fff;
   font-family: "Play", sans-serif;
+  font-size: 17px;
 }
 
 @media screen and (min-width: 425px){
@@ -177,6 +178,17 @@ main{
 
   .switcher_score_container{
     width: 350px;
+  }
+
+  .equipe_info_container h2{
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 550px){
+
+  .equipe_info_container h2{
+    font-size: 24px;
   }
 }
 
